@@ -26,11 +26,15 @@
 #include <ctype.h>
 #include <stdio.h>
 
-#if __GLIBC__ >= 2 && __GLIBC_MINOR >= 25
+#if (__GLIBC__ >= 2) && (__GLIBC_MINOR__ >= 25)
 #include <sys/random.h>
 #else
 # define getrandom backport_getrandom
 # include <sys/syscall.h>
+int backport_getrandom(void *buf, size_t buflen, unsigned int flags)
+{
+	return (int)syscall(SYS_getrandom, buf, buflen, flags);
+}
 #endif
 
 #if defined(_WIN32)
@@ -138,11 +142,6 @@ uint8_t sip_hash_key[SIP_HASH_KEY_LEN];
 /***************************
  * HELPER FUNCTIONS *
  ***************************/
-
-int backport_getrandom(void *buf, size_t buflen, unsigned int flags)
-{
-	return (int)syscall(SYS_getrandom, buf, buflen, flags);
-}
 
 static inline struct buf *
 rndr_newbuf(struct sd_markdown *rndr, int type)
