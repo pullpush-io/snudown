@@ -720,36 +720,37 @@ void
 sdhtml_toc_renderer(struct sd_callbacks *callbacks, struct html_renderopt *options)
 {
 	static const struct sd_callbacks cb_default = {
-		NULL,
-		NULL,
-		NULL,
-		toc_header,
-		NULL,
-		NULL,
-		NULL,
-		NULL,
-		NULL,
-		NULL,
-		NULL,
-
-		NULL,
-		rndr_codespan,
-		rndr_spoilerspan,
-		rndr_double_emphasis,
-		rndr_emphasis,
-		NULL,
-		NULL,
-		toc_link,
-		NULL,
-		rndr_triple_emphasis,
-		rndr_strikethrough,
-		rndr_superscript,
-
-		NULL,
-		NULL,
-
-		NULL,
-		toc_finalize,
+		NULL,					/* cb_blockcode */
+		NULL,					/* cb_blockquote */
+		NULL,            		/* cb_blockspoiler */
+		NULL,				  	/* cb_blockhtml */
+		toc_header,           	/* cb_header */
+		NULL,                  	/* cb_hrule */
+		NULL,                  	/* cb_list */
+		NULL,                  	/* cb_listitem */
+		NULL,                  	/* cb_paragraph */
+		NULL,                  	/* cb_table */
+		NULL,                  	/* cb_table_row */
+		NULL,                  	/* cb_table_cell */
+	
+		NULL,                  	/* cb_autolink */
+		rndr_codespan,         	/* cb_codespan */
+		rndr_spoilerspan,      	/* cb_spoilerspan */
+		rndr_double_emphasis,  	/* cb_double_emphasis */
+		rndr_emphasis,         	/* cb_emphasis */
+		NULL,                  	/* cb_image */
+		NULL,                  	/* cb_linebreak */
+		toc_link,              	/* cb_link */
+		NULL,                  	/* cb_raw_html_tag */
+		rndr_triple_emphasis,  	/* cb_triple_emphasis */
+		rndr_strikethrough,    	/* cb_strikethrough */
+		rndr_superscript,      	/* cb_superscript */
+	
+		NULL,                  	/* cb_entity */
+		NULL,                  	/* cb_normal_text */
+	
+		NULL,                  	/* cb_doc_header */
+		toc_finalize,          	/* cb_doc_footer */
 	};
 
 	memset(options, 0x0, sizeof(struct html_renderopt));
@@ -762,37 +763,37 @@ void
 sdhtml_renderer(struct sd_callbacks *callbacks, struct html_renderopt *options, unsigned int render_flags)
 {
 	static const struct sd_callbacks cb_default = {
-		rndr_blockcode,
-		rndr_blockquote,
-		rndr_blockspoiler,
-		rndr_raw_block,
-		rndr_header,
-		rndr_hrule,
-		rndr_list,
-		rndr_listitem,
-		rndr_paragraph,
-		rndr_table,
-		rndr_tablerow,
-		rndr_tablecell,
+		rndr_blockcode,			/* cb_blockcode */
+		rndr_blockquote,	  	/* cb_blockquote */
+		rndr_blockspoiler,		/* cb_blockspoiler */
+		rndr_raw_block,			/* cb_blockhtml */
+		rndr_header,			/* cb_header */
+		rndr_hrule,				/* cb_hrule */
+		rndr_list,				/* cb_list */
+		rndr_listitem,			/* cb_listitem */
+		rndr_paragraph,			/* cb_paragraph */
+		rndr_table,				/* cb_table */
+		rndr_tablerow,			/* cb_table_row */
+		rndr_tablecell,			/* cb_table_cell */
 
-		rndr_autolink,
-		rndr_codespan,
-		rndr_spoilerspan,
-		rndr_double_emphasis,
-		rndr_emphasis,
-		rndr_image,
-		rndr_linebreak,
-		rndr_link,
-		rndr_raw_html,
-		rndr_triple_emphasis,
-		rndr_strikethrough,
-		rndr_superscript,
+		rndr_autolink,			/* cb_autolink */
+		rndr_codespan,			/* cb_codespan */
+		rndr_spoilerspan,		/* cb_spoilerspan */
+		rndr_double_emphasis,	/* cb_double_emphasis */
+		rndr_emphasis,			/* cb_emphasis */
+		rndr_image,				/* cb_image */
+		rndr_linebreak,			/* cb_linebreak */
+		rndr_link,				/* cb_link */
+		rndr_raw_html,			/* cb_raw_html_tag */
+		rndr_triple_emphasis,	/* cb_triple_emphasis */
+		rndr_strikethrough,		/* cb_strikethrough */
+		rndr_superscript,		/* cb_superscript */
 
-		NULL,
-		rndr_normal_text,
+		NULL,					/* cb_entity */
+		rndr_normal_text,		/* cb_normal_text */
 
-		NULL,
-		reset_toc,
+		NULL,					/* cb_doc_header */
+		reset_toc,				/* cb_doc_footer */
 	};
 
 	/* Prepare the options pointer */
